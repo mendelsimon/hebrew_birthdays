@@ -3,7 +3,7 @@ from icalendar import Event, Calendar
 from datetime import date
 
 BIRTH_DATES = [('Test A Person', (1984, 4, 11)), ('Test B Person', (2009, 10, 11))]
-ORDINAL_SUFFIX = ['th', 'st', 'nd', 'rd'] + ['th'] * 16 + ['th', 'st', 'nd', 'rd', 'th', 'th']
+ORDINAL_SUFFIX = ['th', 'st', 'nd', 'rd'] + ['th'] * 16
 AGE_INFORMATION_THRESHOLD = 25
 MAX_AGE = 120
 
@@ -35,7 +35,7 @@ def add_birthday_events(cal, name, dates):
         # Add the description to the event
         number = ''
         if age <= AGE_INFORMATION_THRESHOLD:
-            number = ' ' + str(age) + ORDINAL_SUFFIX[age]
+            number = ' ' + str(age) + (ORDINAL_SUFFIX[age] if age < 20 else ORDINAL_SUFFIX[age % 10])
         description = f"{name}'s{number} hebrew birthday"
         birthday.add('summary', description)
 
